@@ -1,0 +1,67 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutRoot.cshtml";
+}
+@section scripts
+{
+    @Scripts.Render("~/bundles/KeyValuesApp")
+    @RenderSection("scripts", required: false)
+}
+<div class="row row-offcanvas row-offcanvas-right" ng-app="KeyValuesApp">
+    <div class="col-xs-6 col-sm-5 sidebar-offcanvas" id="sidebarStrip" role="navigation">
+        <div class="panel panel-primary" ng-controller="KeyListController">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <blockquote>
+                        <p>Keys for <b><span ng-bind-template="{{CurrentFrameworkName}}"></span></b><span ng-show="isBusy">....Loading....<i class="fa fa-spinner fa-spin"></i></span></p>
+                    </blockquote>
+                </h3>
+                <div class="btn-toolbar pull-right">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-success" ng-disabled="isBusy" ng-click="Refresh()" title="Refresh Keys"><i class="fa fa-refresh"></i></button>
+                        <a href="#/CreateKey" class="btn btn-success" ng-disabled="isBusy" title="Add new key"> <i class="fa fa-plus-circle"></i></a>
+                    </div>
+                </div>
+                <form class="form-inline" role="form">
+                    <div class="form-group" style="width:65%">
+                        <input type="text" ng-model="query" class="form-control" placeholder="Search">
+                    </div>
+                    <div class="form-group">
+                        <button ng-click="query=''; reset()" ng-disabled="!query" type="submit" class="btn btn-success"><i class="fa fa-times"></i></button>
+                    </div>
+                </form>
+                <div ng-bind-template="Showing {{filtered.length}} of {{data.length}}">
+                </div>
+            </div>
+            <div class="panel-body">
+                <table class="table table-striped table-condensed table-hover">
+                    <tbody>
+                        <tr ng-show="isBusy">
+                            <td colspan="2" style="text-align:center">
+                                <div class="progress progress-striped active">
+                                    <div class="progress-bar" style="width: 100%">Loading....<i class="fa fa-spinner fa-spin"></i></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr ng-show="isBusy==false" ng-repeat="i in filtered = (data | filter:query) | orderBy:sortField" id="keyTR_{{i.Id}}">
+                            <td>
+                                <span ng-show="i.IsActive==false" style="color:red">{{i.KeyName}} <i class="fa fa-key" ng-show="i.IsProtected"></i></span>
+                                <span ng-show="i.IsActive"><a ng-click="SetInitStateForKeyValueFactoryToFalse()" href="#/KeyValues/{{i.Id}}">{{i.KeyName}} <i class="fa fa-key" ng-show="i.IsProtected"></i></a></span>
+                            </td>
+                            <td><a href="#/EditKey/{{i.Id}}"><i class="fa fa-edit"></i></a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div> 
+        </div><!--/.well -->
+    </div><!--/span end of left col-->
+
+    <div class="col-xs-12 col-sm-7">
+        <p class="pull-right visible-xs">
+            <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
+        </p>
+        @RenderBody()
+    </div>
+</div>
+
+
+

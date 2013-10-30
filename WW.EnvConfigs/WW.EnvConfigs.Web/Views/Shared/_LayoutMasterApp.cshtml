@@ -1,0 +1,31 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutRoot.cshtml";
+}
+@section scripts
+{
+    @Scripts.Render("~/bundles/MasterApp")
+    @RenderSection("scripts", required: false)
+}
+<div class="row row-offcanvas row-offcanvas-right" ng-app="MasterApp">
+        <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
+            <div class="well sidebar-nav">
+                <ul class="nav">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#Frameworks">Frameworks</a></li>
+                    <li><a href="#Apps">Apps</a></li>
+                    <li><a href="#Locales">Locales</a></li>
+                    <li><a href="#Builds">Builds</a></li>
+                </ul>
+            </div>
+        </div>
+
+    <div class="col-xs-12 col-sm-7">
+        <p class="pull-right visible-xs">
+            <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
+        </p>
+        @RenderBody()
+    </div>
+</div>
+
+
+

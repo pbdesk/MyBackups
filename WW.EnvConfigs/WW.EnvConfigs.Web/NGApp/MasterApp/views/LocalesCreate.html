@@ -1,0 +1,71 @@
+﻿<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <blockquote>
+                <p><b>Locales</b> <div class="pull-right">{{PageHeading}}</div></p>
+            </blockquote>
+        </h3>
+    </div>
+    <div class="panel-body">
+
+        <form class="form-horizontal" name="NewLocaleForm" role="form" novalidate ng-submit="Save()">
+            <div class="form-group">
+                <label for="SiteId" class="col-lg-3 control-label">Site Id</label>
+                <div class="col-lg-9">
+                    <input type="number" class="form-control" id="SiteId" placeholder="Site Id" name="SiteId" ng-model="NewLocale.SiteId" required min="1" max="999" style="width:50%; display:inline">
+                    <span class="error" ng-show="NewLocaleForm.SiteId.$error.required">*</span>
+                    <span class="error" ng-show="NewLocaleForm.SiteId.$error.number">Not valid number!</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="ShortName" class="col-lg-3 control-label">Short Name</label>
+                <div class="col-lg-5">
+                    <input type="text" class="form-control" id="ShortName" placeholder="Short Name(2-3) Characters" name="ShortName" ng-model="NewLocale.ShortName">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Name" class="col-lg-3 control-label">Name</label>
+                <div class="col-lg-9">
+                    <input type="text" class="form-control" id="Name" placeholder="Name" name="Name" ng-model="NewLocale.Name">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="LCID" class="col-lg-3 control-label">LCID</label>
+                <div class="col-lg-5">
+                    <input type="text" class="form-control" id="LCID" placeholder="LCID" name="LCID" ng-model="NewLocale.LCID">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="Language" class="col-lg-3 control-label">Language</label>
+                <div class="col-lg-6">
+                    <input type="text" class="form-control" id="Language" placeholder="Language" name="Language" ng-model="NewLocale.Language">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="Domain" class="col-lg-3 control-label">Domain</label>
+                <div class="col-lg-6">
+                    <input type="text" class="form-control" id="Domain" placeholder="Domain" name="Domain" ng-model="NewLocale.Domain">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="OracleName" class="col-lg-3 control-label">Oracle Name</label>
+                <div class="col-lg-6">
+                    <input type="text" class="form-control" id="OracleName" placeholder="OracleName" name="OracleName" ng-model="NewLocale.OracleName">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-lg-offset-2 col-lg-10">
+                    <button type="submit" class="btn btn-success" ng-disabled="NewLocaleForm.$invalid">Submit</button>
+                    <a href="#/Locales" class="btn" ng-click="cancel()">Cancel</a>
+                </div>
+            </div>
+        </form>
+
+    </div>
+    <div class="panel-footer"></div>
+</div>

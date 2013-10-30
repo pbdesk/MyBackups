@@ -1,0 +1,95 @@
+﻿<div class="panel panel-primary">
+    <div class="panel-heading" style="height:100px">
+        <h3 class="panel-title">
+            <blockquote style="margin-bottom:0px">
+                <p><b>Key: {{data[0].EnvKey.KeyName}}</b></p>
+            </blockquote>
+        </h3>
+        <div class="btn-toolbar pull-right">
+            <div class="btn-group">
+                <a href="/" class="btn btn-success" title="Home"> <i class="fa fa-home"></i></a>
+                <button type="button" ng-disabled="isBusy" class="btn btn-success" ng-click="Refresh()"  title="Refresh"><i class="fa fa-refresh"></i></button>
+                <button type="button" ng-disabled="isBusy" class="btn btn-success" ng-click="UpdateAll()"  title="Save All"><i class="fa fa-save"></i></button>
+                <button type="button" ng-disabled="isBusy" class="btn btn-success" ng-click="RevertAll()"  title="Revert All"><i class="fa fa-mail-reply-all"></i></button>
+                <a href="#/EnvCreate" ng-disabled="isBusy" class="btn btn-success"> <i class="fa fa-plus-circle" title="Add Values"></i></a>
+            </div>
+            <div class="btn-group">
+                <button type="button" ng-disabled="isBusy" class="btn btn-success" ng-click="SortByBuild()">Sort By Build</button>
+                <button type="button" ng-disabled="isBusy" class="btn btn-success" ng-click="SortByLocale()">Sort By Locale</button>               
+            </div>
+            <div class="btn-group" ng-show="true">
+                <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+                    <i class="fa fa-hand-o-down"></i>
+                </button>
+                <ul class="dropdown-menu" role="menu" style="color:#cccccc">
+                    <li>${schema}</li>
+                    <li>${track}</li>
+                    <li class="divider"></li>
+                    <li>${country}</li>
+                    <li>${siteid}</li>
+                    <li>${language}</li>
+                    <li>${domain}</li>
+                    <li class="divider"></li>
+                    <li>${oracle}</li>
+                    <li>${build}</li>
+                </ul>
+            </div>
+            
+        </div> 
+    </div>
+    <div class="panel-body">   
+        <div class="progress progress-striped active" ng-show="isBusy" >
+            <div class="progress-bar"  style="width: 100%">Loading....<i class="fa fa-spinner fa-spin"></i></div>
+        </div>
+        <form class="form-inline" role="form" style="text-align:center;padding-bottom:10px">
+            <div class="form-group" style="width:15%">
+                <input type="text" ng-model="query1" class="form-control" placeholder="Build">
+            </div>
+            <div class="form-group">
+                <button ng-click="query1=''; reset()" ng-disabled="!query1" type="submit" class="btn"><i class="fa fa-times"></i></button>
+            </div>
+            <div class="form-group" style="width:15%">
+                <input type="text" ng-model="query2" class="form-control" placeholder="Locale">
+            </div>
+            <div class="form-group">
+                <button ng-click="query2=''; reset()" ng-disabled="!query2" type="submit" class="btn"><i class="fa fa-times"></i></button>
+            </div>
+            <div class="form-group" style="width:30%">
+                <input type="text" ng-model="query3" class="form-control" placeholder="Value">
+            </div>
+            <div class="form-group">
+                <button ng-click="query3=''; reset()" ng-disabled="!query3" type="submit" class="btn"><i class="fa fa-times"></i></button>
+            </div>
+        </form>
+        <div ng-repeat="i in filteredValues = (data  | filter:{Build.Name:query1,Locale.ShortName:query2,KeyValue:query3}) | orderBy:sortField " id="ValueId_{{i.Id}}" style="padding-bottom:5px">
+            <form name="form_{{i.Id}}" role="form">
+                <div class="input-group">
+                    <span class="input-group-addon" style="width:90px">{{i.Build.Name}} <span class="badge"><b>{{i.Locale.ShortName}}</b></span></span>
+                    <textarea id="valueTextBox_{{i.id}}" ng-model="i.KeyValue" rows="3" class="form-control" ng-model-onblur ng-change="changed(i)"></textarea>
+                    <div class="input-group-addon">
+                        <div style="text-align: center; width: 100px">
+                            <div class="btn-group" style="margin-top:-2px">
+                                <button class="btn btn-primary btn-sm" ng-disabled="isBusy" title="Save" ng-click="UpdateValue(i)"> <i class="fa fa-save"></i></button>
+                                <button class="btn btn-primary btn-sm" ng-disabled="isBusy" title="Undo Changes" ng-click="Revert(i)"><i class="fa fa-mail-reply"></i></button>
+                                <button class="btn btn-primary btn-sm" ng-disabled="isBusy" title="Clear" ng-click="Clear(i)"><i class="fa fa-square-o"></i></button>
+
+                            </div>
+                            <br />
+                            <div class="btn-group" style="padding-top:2px; margin-left:-3px">
+                                <button class="btn btn-primary btn-sm" ng-disabled="isBusy" title="Repeat same value for all locales in {{i.Build.Name}} build" ng-click="ApplyValueToAllLocalesForSameEnv(i.KeyValue,i.Build.Id, i.Build.Name )"><i class="fa fa-resize-horizontal"></i></button>
+                                <button class="btn btn-primary btn-sm" ng-disabled="isBusy" title="Repeat same value for all builds in {{i.Locale.ShortName}} locale" ng-click="ApplyValueToAllBuildsForSameLocale(i.KeyValue,i.Locale.Id, i.Locale.ShortName )"><i class="fa fa-resize-vertical"></i></button>
+                                <!--<button class="btn btn-primary btn-sm" ng-disabled="isBusy" title="Repeat same value for all locales and all builds" ng-click="ApplyValueToAll(i.KeyValue)"><i class="fa fa-retweet"></i></button>-->
+                                <button class="btn btn-primary btn-sm" ng-disabled="isBusy" title="Repeat same value for all locales and all builds" ng-click="ApplyValueToAllFilteredItems(i.KeyValue, filteredValues)"><i class="fa fa-retweet"></i></button>                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        
+
+    </div>
+    <div class="panel-footer" style="height:40px">
+        <div class="pull-right" ng-bind-template="Showing {{filteredValues.length}} of total {{data.length}} records."></div>
+    </div>
+</div>

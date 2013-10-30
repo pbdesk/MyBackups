@@ -1,0 +1,11 @@
+﻿@model int
+@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_LayoutKeyValuesApp.cshtml";
+}
+<script type="text/javascript">
+    var MyApp = MyApp || {};
+    MyApp.CURRENT_FRAMEWORK_ID  = @Model
+</script>
+
+<div ng-view class="shuffle-animation"></div>

@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - WW Env Configs</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <script type="text/javascript">
+        var MyApp = MyApp || {};
+        MyApp.CURRENT_USERNAME  = "@User.Identity.Name" ;       
+    </script>
+
+</head>
+<body>
+    <header>
+        <div class="navbar navbar-fixed-top navbar-default" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="fa fa-bar"></span>
+                    <span class="fa fa-bar"></span>
+                    <span class="fa fa-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/"><i class='fa fa-home'></i> WW Environment Configurations</a>                
+            </div>
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav navbar-right" style="padding-right:25px">
+                    <li style="color:#fff; padding-top:12px">@User.Identity.Name</li>
+                </ul>
+            </div><!-- /.nav-collapse -->
+        </div><!-- /.container -->
+    </div><!-- /.navbar -->
+    </header>
+    <div class="container">
+        @RenderBody()
+            
+        @*<div class="row row-offcanvas row-offcanvas-right">
+                    
+        </div>*@<!--/row-->
+    </div>
+  
+    <footer class="footer">
+        <div class="container">
+            <p><b>WW Environment Configurations</b></p>                                    
+        </div>
+    </footer>
+    @Scripts.Render("~/bundles/js")
+    @Scripts.Render("~/bundles/Angular")
+    @Scripts.Render("~/bundles/MyNGHelperApp")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

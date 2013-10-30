@@ -1,0 +1,79 @@
+﻿<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <blockquote>
+                <p><b>Environment Config Key</b> <div class="pull-right">{{PageHeading}}</div></p>
+            </blockquote>
+        </h3>
+    </div>
+    <div class="panel-body">
+
+        <form class="form-horizontal" name="NewKeyForm" role="form" novalidate ng-submit="Save(false)">
+            <div class="form-group">
+                <label for="KeyName" class="col-lg-2 control-label">Key Name</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" id="KeyName" placeholder="Key Name" name="KeyName" ng-model="NewKey.KeyName" required style="width:80%; display:inline" />
+                    <span class="error" ng-show="NewKeyForm.KeyName.$error.required">*</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="KeyDesc" class="col-lg-2 control-label">Description</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" id="KeyDesc" placeholder="Description" name="KeyDesc" ng-model="NewKey.KeyDesc" />
+                </div>
+            </div>
+            <div class="form-group" ng-show="false">
+                <label for="Protection" class="col-lg-2 control-label">Protection</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" id="Protection" placeholder="Protection" name="Protection" ng-model="NewKey.Protection" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="IsProtected" class="col-lg-2 control-label">Protected?</label>
+                <div class="col-lg-1">
+                    <input type="checkbox" class="form-control" id="IsProtected" name="IsProtected" ng-model="NewKey.IsProtected" ng-checked="NewKey.IsProtected" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="IsActive" class="col-lg-2 control-label">Active?</label>
+                <div class="col-lg-1">
+                    <input type="checkbox" class="form-control" id="IsActive" name="IsActive" ng-model="NewKey.IsActive"  ng-checked="NewKey.IsActive" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="CreatedBy" class="col-lg-2 control-label">Created By</label>
+                <div class="col-lg-6">
+                    <input type="text" class="form-control" id="CreatedBy" placeholder="Created By/Name" name="CreatedBy" ng-model="NewKey.CreatedBy" ng-disabled="true" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="CreateDate" class="col-lg-2 control-label">CreateDate</label>
+                <div class="col-lg-6">
+                    <input type="text" class="form-control" id="CreateDate" placeholder="Create Date" ng-model="NewKey.CreateDate" name="CreateDate" ng-disabled="true" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-lg-offset-2 col-lg-10">
+                    <!--<button type="submit" class="btn btn-success" ng-disabled="NewKeyForm.$invalid">Submit</button>-->
+                    <div class="btn-group">
+                        <button type="submit" class="btn btn-success" ng-disabled="NewKeyForm.$invalid" >Submit</button>
+                        <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" ng-disabled="NewKeyForm.$invalid">
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#/KeyEdit/{{NewKey.Id}}" ng-click="Save(true)" ng-disabled="NewKey.IsActive">Save And Edit Values</a></li>
+                        </ul>
+                    </div>
+                    <a href="#/" class="btn" ng-click="cancel()">Cancel</a>
+                </div>
+            </div>
+        </form>
+
+    </div>
+    <div class="panel-footer"></div>
+</div>
+

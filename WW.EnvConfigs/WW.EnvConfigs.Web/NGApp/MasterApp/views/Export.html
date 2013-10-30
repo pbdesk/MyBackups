@@ -1,0 +1,111 @@
+﻿<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <blockquote>
+                <p><b>Export Utility</b> <div class="pull-right">{{framework.Name}}</div></p>
+            </blockquote>
+        </h3>
+    </div>
+    <div class="panel-body">
+        <div ng-show="isBusy">
+                <div class="progress progress-striped active">
+                    <div class="progress-bar" style="width: 100%"></div>
+                </div>
+        </div>
+        <form class="form-horizontal" name="eiParamsObjForm" role="form" novalidate ng-submit="RunExport()" ng-show="isBusy==false">
+            <div class="form-group">
+                <label for="txtLocation" class="col-lg-2 control-label">Location</label>                
+                <div class="col-lg-9">
+                    <input type="text" class="form-control" id="txtLocation" placeholder="Location/Directory" name="txtLocation" ng-model="eiParamsObj.dir" ng-required="true" style="display: inline;width:80%;">                    
+                    <span class="error" ng-show="eiParamsObjForm.txtLocation.$error.required">*</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="locale" class="col-lg-2 control-label">Locale(s)</label>
+                <div class="col-lg-8">
+                    <!--<select class="form-control" ng-model="eiParamsObj.locale" >
+                        <option value="ALL" selected>ALL</option>
+                        <option ng-repeat="loc in locales" value="{{loc.ShortName}}">{{loc.ShortName}}</option>
+                    </select>-->
+                    <!--<select class="form-control" ng-model="eiParamsObj.locale" ng-options="c.Id as c.ShortName for c in locales">
+                        <option value="ALL">ALL</option>
+                    </select>-->
+                    <div class="col-lg-3">
+                        <label>
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="AllLocales" ng-change="AllLocalesCheckboxChange()" />
+                            All
+                        </label>
+                    </div>
+                    <div class="col-lg-3" ng-repeat="loc in locales">
+                        <label>
+                            <input type="checkbox" value="{{loc.ShortName}}" ng-checked="loc.checked" ng-model="loc.checked" ng-change="LocaleCheckboxChange(loc.checked)" />
+                            {{loc.ShortName}}
+                        </label>
+                    </div>
+                    
+                    
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="build" class="col-lg-2 control-label">Build(s)</label>
+                <div class="col-lg-8">
+                    <!--<select class="form-control" ng-model="eiParamsObj.build">
+                        <option value="ALL" selected>ALL</option>
+                        <option ng-repeat="bld in builds" value="{{bld.Name}}">{{bld.Name}}</option>
+                    </select>-->
+                    <!--<select class="form-control"  ng-model="eiParamsObj.build" ng-options="c.Id as c.Name for c in builds">
+                        <option value="ALL">ALL</option>
+                    </select>-->
+                    <div class="col-lg-4">
+                        <label>
+                            <input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="AllBuilds" ng-change="AllBuildsCheckboxChange()" />
+                            All
+                        </label>
+                    </div>
+                    <div class="col-lg-4" ng-repeat="bld in builds">
+                        <label>
+                            <input type="checkbox" value="{{bld.Name}}" ng-checked="bld.checked" ng-model="bld.checked" ng-change="BuildCheckboxChange(bld.checked)" />
+                            {{bld.Name}}
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="schema" class="col-lg-2 control-label">Schema</label>
+                <div class="col-lg-4">
+                    <select class="form-control" ng-model="eiParamsObj.schema" >
+                        <option value="App1" selected>App1</option>
+                        <option value="App2">App2</option>
+                        <option value="Appj">AppJ</option>
+                    </select>                    
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="track" class="col-lg-2 control-label">Track</label>                
+                <div class="col-lg-7">
+                    <input type="text" class="form-control" id="track" placeholder="Track #" name="track" ng-model="eiParamsObj.track" ng-required="true" style="display:inline;width:80%">                    
+                    <span class="error" ng-show="eiParamsObjForm.track.$error.required">*</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="dbtrack" class="col-lg-2 control-label">Database</label>
+                <div class="col-lg-6">
+                    <input type="text" class="form-control" id="dbtrack" placeholder="Database Env & Track" name="dbtrack" ng-model="eiParamsObj.db">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-lg-offset-2 col-lg-10">
+                    <button type="submit" class="btn btn-success" ng-disabled="IsFormValid(eiParamsObjForm.$invalid)==false" ng-show="isExporting==false">Run Export</button>
+                    <button class="btn btn-success" ng-show="isExporting" ng-disabled="true">Exporting...<i class="fa fa-spinner fa-spin"></i></button>
+                    <a href="#/" class="btn" ng-click="cancel()">{{CancelText}}</a>
+                </div>
+            </div>
+        </form>
+
+    </div>
+    <div class="panel-footer"></div>
+</div>

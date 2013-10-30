@@ -1,0 +1,44 @@
+﻿<div class="panel panel-primary">
+    <div class="panel-heading" style="height:100px">
+        <h3 class="panel-title">
+            <blockquote>
+                <p><b>Select Framework</b></p>
+            </blockquote>
+        </h3>
+        <div class="btn-toolbar pull-right" style="margin-top: -26px;">
+            <div class="btn-group">
+                <button type="button" class="btn btn-success" ng-click="Refresh()" ng-disabled="isBusy"><i class="fa fa-refresh"></i></button>
+            </div>
+        </div>
+    </div>
+  <div class="panel-body">
+    <div>
+        <div ng-show="isBusy">
+            <div class="progress progress-striped active">
+                <div class="progress-bar" style="width: 100%">Loading....<i class="fa fa-spinner fa-spin"></i></div>
+            </div>
+        </div>
+        <div ng-repeat="i in data">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><b style="color: #2fa4e7">{{i.Name}}</b></h3>
+                </div>
+                <div class="panel-body">                    
+                    <div>
+                        {{i.Description}}
+                        <div class="pull-right">
+                            <a class="btn btn-primary" href="/KeyValues/{{i.Id}}" >Edit Key/Values</a>
+                            <a class="btn btn-primary" href="#Export/{{i.Id}}">Export</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        
+    </div>
+  </div>
+ <div class="panel-footer"></div>
+</div>

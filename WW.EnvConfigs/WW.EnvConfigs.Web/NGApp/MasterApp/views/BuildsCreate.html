@@ -1,0 +1,39 @@
+﻿<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <blockquote>
+                <p><b>Builds</b> <div class="pull-right">{{PageHeading}}</div></p>
+            </blockquote>
+        </h3>
+    </div>
+    <div class="panel-body">
+
+        <form class="form-horizontal" name="NewBuildForm" role="form" novalidate ng-submit="Save()">
+            <div class="form-group">
+                <label for="ShortName" class="col-lg-3 control-label">Short Name</label>
+                <div class="col-lg-5">
+                    <input type="text" class="form-control" id="ShortName" placeholder="Name" name="ShortName" ng-model="NewBuild.Name">
+                    <span class="error" ng-show="NewBuildForm.ShortName.$error.required">*</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Description" class="col-lg-3 control-label">Description</label>
+                <div class="col-lg-9">
+                    <input type="text" class="form-control" id="Description" placeholder="Description" name="Description" ng-model="NewBuild.Description">
+                </div>
+            </div>
+
+
+
+            <div class="form-group">
+                <div class="col-lg-offset-2 col-lg-10">
+                    <button type="submit" class="btn btn-success" ng-disabled="NewBuildForm.$invalid" ng-show="isBusy==false">Submit</button>
+                    <button type="button" class="btn btn-success" ng-disabled="true" ng-show="isBusy"><i class="fa fa-2x fa-spinner fa-spin"> </i></button>
+                        <a href="#/Builds" class="btn" ng-click="cancel()">Cancel</a>
+                </div>
+            </div>
+        </form>
+
+    </div>
+    <div class="panel-footer"></div>
+</div>
